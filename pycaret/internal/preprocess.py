@@ -1453,6 +1453,8 @@ class Make_Time_Features(BaseEstimator, TransformerMixin):
          
         def get_time_features(r):
             features = []
+            if "year" in self.list_of_features_o:
+                features.append(("_year", str(r.year)))
             if "month" in self.list_of_features_o:
                 features.append(("_month", str(r.month)))
             if "weekday" in self.list_of_features_o:
@@ -1461,9 +1463,11 @@ class Make_Time_Features(BaseEstimator, TransformerMixin):
                 features.append(
                     (
                         "_is_month_end",
-                        "1"
-                        if not pd.isnull(r) and calendar.monthrange(r.year, r.month)[1] == r.day
-                        else "0",
+                        "nan"
+                        if pd.isnull(r)
+                        else "1" 
+                             if calendar.monthrange(r.year, r.month)[1] == r.day
+                             else "0",
                     )
                 )
             if "is_month_start" in self.list_of_features_o:
