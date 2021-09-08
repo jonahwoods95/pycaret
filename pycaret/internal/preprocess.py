@@ -1453,8 +1453,6 @@ class Make_Time_Features(BaseEstimator, TransformerMixin):
          
         def get_time_features(r):
             features = []
-            if "year" in self.list_of_features_o:
-                features.append(("_year", str(r.year)))
             if "month" in self.list_of_features_o:
                 features.append(("_month", str(r.month)))
             if "weekday" in self.list_of_features_o:
