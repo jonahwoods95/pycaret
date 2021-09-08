@@ -1461,9 +1461,11 @@ class Make_Time_Features(BaseEstimator, TransformerMixin):
                 features.append(
                     (
                         "_is_month_end",
-                        "1"
-                        if not pd.isnull(r) and calendar.monthrange(r.year, r.month)[1] == r.day
-                        else "0",
+                        "nan"
+                        if pd.isnull(r)
+                        else "1" 
+                             if calendar.monthrange(r.year, r.month)[1] == r.day
+                             else "0",
                     )
                 )
             if "is_month_start" in self.list_of_features_o:
